@@ -16,7 +16,7 @@ from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
 # 导入数据
-mnist = read_data_sets("/home/xzy/tf-input-data", one_hot=True)
+mnist = read_data_sets("mnist-data", one_hot=True)
 # 定义参数
 x = tf.placeholder(tf.float32, [None, 784])
 Weights = tf.Variable(tf.zeros([784, 10]))

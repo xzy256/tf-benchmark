@@ -13,7 +13,7 @@ import time
 os.environ['TF_CPP_LOG_LEVEL']='2'
 
 #load dataset,one_ho编码代表的是只有一个位代表1，其他位为0
-mnist = read_data_sets("/home/xzy/tf-input-data", one_hot = True)
+mnist = read_data_sets("mnist-data", one_hot = True)
 
 #我们对mnist数据集做一个数据限制
 Xtrain, Ytrain = mnist.train.next_batch(5000)
