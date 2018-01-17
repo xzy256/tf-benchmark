@@ -1,18 +1,18 @@
 @author:xzy
 @time:2018.1.16
 该项目是一个简单的benchmark，旨在对比不同平台的tensorflow的性能时使用
-总共包含10测试用列，其中alexnet、vgg、inception_v3、resnet-50和cnn、knn、cnn多核多线程：
-alexnet_benchmark.py
-cnn_multicore_benchmark.py
-cnn_multithread_benchmark.py
-convolution_benchmark.py
-inception_v3_benchmark.py
-k_nearest_neighbor.py
-matmul_add_benchmark.py
-resnet_benchmark.py
-softmax_regression.py
-vgg_benchmark.py
-
+总共包含以下测试用列，其中alexnet、vgg、inception_v3、resnet-50和cnn、knn、cnn多核多线程等：
+alexnet_benchmark.py		#alexnet 
+cnn_multicore_benchmark.py	#cnn多核
+cnn_multithread_benchmark.py	#cnn多线程
+convolution_benchmark.py	#cnn
+inception_v3_benchmark.py	#gooLeNet v3
+k_nearest_neighbor.py		#KNN
+matmul_add_benchmark.py		#矩阵乘
+resnet_benchmark.py		#resnet-50,可以配置成101,152,200
+softmax_regression.py		#softmax回归
+vgg_benchmark.py		#VGG
+linear_regression.py		#线性回归
 
 test:
 $ python xxxx.py
