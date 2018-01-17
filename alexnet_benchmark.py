@@ -198,7 +198,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--batch_size',
       type=int,
-      default=128,
+      default=32,
       help='Batch size.'
   )
   parser.add_argument(

@@ -27,10 +27,10 @@ PIXEL_DEPTH = 255
 NUM_LABELS = 10
 VALIDATION_SIZE = 500  # Size of the validation set.
 SEED = 66478  # Set to None for random seed.
-BATCH_SIZE = 100
+BATCH_SIZE = 50
 NUM_EPOCHS = 10 
 EVAL_BATCH_SIZE = 100
-EVAL_FREQUENCY = 100  # Number of steps between evaluations.
+EVAL_FREQUENCY = 50  # Number of steps between evaluations.
 TRAIN_MAX = 5500
 
 
@@ -287,11 +287,13 @@ def main(argv=None):  # pylint: disable=unused-argument
   start_time = time.time()
   with tf.Session() as sess:
     # 初始化所有的训练参数
-    tf.initialize_all_variables().run()
+    tf.global_variables_initializer().run()
     print('Initialized!')
     # 根据 steps进行循环.
-    # num_epochs = 10(非self_test)或 1(self_test)  BATCH_SIZE = 64 train_size=55000
-    for step in xrange(int(num_epochs * train_size) // BATCH_SIZE):
+    # num_epochs = 10(非self_test)或 1(self_test)  BATCH_SIZE = 64 train_size=5500
+    index = int(num_epochs * train_size) // BATCH_SIZE
+    print("--------------index=%d, num=%d, train_size=%d, Batch_size=%d" %(index, num_epochs, train_size, BATCH_SIZE))
+    for step in xrange(index):
       # 计算当前 minibatch 在数据集里的偏移.
       offset = (step * BATCH_SIZE) % (train_size - BATCH_SIZE)
       batch_data = train_data[offset:(offset + BATCH_SIZE), ...]
@@ -304,13 +306,13 @@ def main(argv=None):  # pylint: disable=unused-argument
       if step % EVAL_FREQUENCY == 0:
         elapsed_time = time.time() - start_time
         start_time = time.time()
-        print('Step %d (epoch %.2f), %.1f ms' %
-              (step, float(step) * BATCH_SIZE / train_size,
-               1000 * elapsed_time / EVAL_FREQUENCY))
-        print('Minibatch loss: %.3f, learning rate: %.6f' % (l, lr))
-        print('Minibatch error: %.1f%%' % error_rate(predictions, batch_labels))
-        print('Validation error: %.1f%%' % error_rate(
-            eval_in_batches(validation_data, sess), validation_labels))
+        #print('Step %d (epoch %.2f), %.1f ms' %
+        #      (step, float(step) * BATCH_SIZE / train_size,
+        #       1000 * elapsed_time / EVAL_FREQUENCY))
+        #print('Minibatch loss: %.3f, learning rate: %.6f' % (l, lr))
+        #print('Minibatch error: %.1f%%' % error_rate(predictions, batch_labels))
+        print('step=%d Verr=%.1f%%' % (step, error_rate(
+            eval_in_batches(validation_data, sess), validation_labels)))
         sys.stdout.flush()
     # 打印最终的结果
     test_error = error_rate(eval_in_batches(test_data, sess), test_labels)
